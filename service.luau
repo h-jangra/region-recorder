@@ -115,7 +115,7 @@ local function startSlurpSelection()
     log("starting slurp region selection...")
 
     local scriptPath = `{noctalia.pluginDir()}/scripts/get_windows.sh`
-    local slurpCmd = string.format("sleep 0.2 && ( '%s' | slurp -f '%%x,%%y %%wx%%h' )", scriptPath)
+    local slurpCmd = string.format("sleep 0.2 && ( sh '%s' 2>/dev/null | slurp -f '%%x,%%y %%wx%%h' )", scriptPath)
 
     noctalia.runAsync(slurpCmd, function(res)
         if state ~= "selecting" then return end

@@ -32,16 +32,16 @@ Control the region recorder service directly via IPC:
 
 ```sh
 # Toggle region recording
-noctalia msg plugin h-jangra/region-recorder:service toggle
+noctalia msg plugin h-jangra/region-recorder:service all toggle
 
 # Start region selection recording explicitly
-noctalia msg plugin h-jangra/region-recorder:service select-region
+noctalia msg plugin h-jangra/region-recorder:service all select-region
 
 # Start fullscreen recording explicitly
-noctalia msg plugin h-jangra/region-recorder:service record-fullscreen
+noctalia msg plugin h-jangra/region-recorder:service all record-fullscreen
 
 # Stop active recording
-noctalia msg plugin h-jangra/region-recorder:service stop
+noctalia msg plugin h-jangra/region-recorder:service all stop
 ```
 
 ## Settings

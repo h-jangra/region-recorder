@@ -23,16 +23,19 @@ local function applyStatus(status)
     end
 
     local configs = {
-        recording = { glyph = "disc", color = "error", tooltip = noctalia.tr("widget.recording"), vis = true },
-        selecting = { glyph = "crosshair", color = "primary", tooltip = noctalia.tr("widget.selecting"), vis = true },
-        idle = { glyph = "video", color = "on_surface", tooltip = noctalia.tr("widget.idle"), vis = not hideInactive },
+        recording = { glyph = "disc", color = "error", tooltip = noctalia.tr("widget.recording") or "Region Recorder: Recording... (Click to stop)", vis = true },
+        selecting = { glyph = "crosshair", color = "primary", tooltip = noctalia.tr("widget.selecting") or "Region Recorder: Selecting region with slurp...", vis = true },
+        idle = { glyph = "video", color = "on_surface", tooltip = noctalia.tr("widget.idle") or "Region Recorder: Click to select region", vis = not hideInactive },
     }
 
     local cfg = configs[state] or configs.idle
     barWidget.setGlyph(cfg.glyph)
     barWidget.setGlyphColor(cfg.color)
-    if cfg.color == "error" or cfg.color == "primary" then
-        barWidget.setColor(cfg.color)
+    if type(barWidget.setColor) == "function" then
+        barWidget.setColor(if cfg.color == "error" or cfg.color == "primary" then cfg.color else "")
+    end
+    if type(barWidget.setActive) == "function" then
+        barWidget.setActive(state == "recording" or state == "selecting")
     end
     barWidget.setTooltip(cfg.tooltip)
     barWidget.setVisible(cfg.vis)
@@ -44,6 +47,10 @@ end
 
 function onRightClick()
     if available then send(if state == "idle" then "record-fullscreen" else "stop") end
+end
+
+function onConfigChanged()
+    applyStatus(noctalia.state.get("status"))
 end
 
 applyStatus(noctalia.state.get("status"))
