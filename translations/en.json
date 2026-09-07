@@ -41,6 +41,15 @@
       "label": "Frame Rate (FPS)",
       "description": "Target framerate for recording"
     },
+    "framerate_mode": {
+      "label": "Framerate Mode",
+      "description": "Framerate mode (CFR ensures constant framerate for video editors like Kdenlive)",
+      "options": {
+        "cfr": "Constant (CFR) - Recommended for editing",
+        "vfr": "Variable (VFR)",
+        "content": "Match Content (Sync)"
+      }
+    },
     "video_codec": {
       "label": "Video Codec",
       "description": "Video encoding codec",

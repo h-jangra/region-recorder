@@ -54,6 +54,7 @@ Configure Region Recorder in **Noctalia Settings → Plugins → Region Recorder
 | `directory` | `folder` | `~/Videos/Recordings` | Directory where recorded video files are saved. |
 | `filename_pattern` | `string` | `recording_%Y%m%d_%H%M%S` | Strftime format string for output file names. |
 | `frame_rate` | `int` | `60` | Target framerate (FPS) for recording (`1` – `240`). |
+| `framerate_mode` | `select` | `cfr` | Framerate mode (`cfr`, `vfr`, `content`). `cfr` (Constant Frame Rate) is editor-friendly and required by editors like Kdenlive. |
 | `video_codec` | `select` | `h264` | Video encoding codec (`h264`, `hevc`, `av1`). |
 | `audio_source` | `select` | `none` | Audio stream to record (`none`, `default_output`, `default_input`, `both`). |
 | `show_cursor` | `bool` | `true` | Include mouse cursor in the screen recording. |

@@ -47,6 +47,7 @@ end
 
 local function buildRecordCommand(geom, targetPath)
     local fps = cfg("frame_rate") or 60
+    local framerateMode = cfg("framerate_mode") or "cfr"
     local codec = cfg("video_codec") or "h264"
     local cursor = if cfg("show_cursor") then "yes" else "no"
     local audioSource = cfg("audio_source") or "none"
@@ -65,11 +66,12 @@ local function buildRecordCommand(geom, targetPath)
             if gx and gy and gw and gh then targetFlag = string.format("-w %sx%s+%s+%s", gw, gh, gx, gy) end
         end
 
-        return string.format("gpu-screen-recorder %s -f %d -k %s -bm qp -ffmpeg-opts qp=25 -cursor %s -cr limited %s -v no -o %s", targetFlag, fps, codec, cursor, audioFlags, shellQuote(targetPath))
+        return string.format("gpu-screen-recorder %s -f %d -fm %s -k %s -cursor %s -cr limited %s -v no -o %s", targetFlag, fps, framerateMode, codec, cursor, audioFlags, shellQuote(targetPath))
     elseif noctalia.commandExists("wl-screenrec") then
         recordingProcessName = "wl-screenrec"
         local wlCodec = if codec == "h264" then "avc" else codec
         local parts = { "wl-screenrec", string.format("-f %s", shellQuote(targetPath)), string.format("-m %d", fps), string.format("--codec %s", wlCodec) }
+        if framerateMode == "cfr" then table.insert(parts, "--no-damage") end
         if geom and geom ~= "" and geom ~= "screen" then table.insert(parts, string.format("-g %s", shellQuote(geom))) end
         if not cfg("show_cursor") then table.insert(parts, "--no-cursor") end
         if audioSource ~= "none" then table.insert(parts, "--audio") end
