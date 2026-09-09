@@ -1,7 +1,7 @@
 id = "h-jangra/region-recorder"
 name = "Region Recorder"
 version = "0.1.0"
-plugin_api = 3
+plugin_api = 24 
 author = "h-jangra"
 license = "MIT"
 dependencies = ["slurp", "gpu-screen-recorder", "wl-screenrec", "wf-recorder", "ffmpeg"]
