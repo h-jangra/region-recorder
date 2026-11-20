@@ -78,7 +78,8 @@ local function buildRecordCommand(geom, targetPath)
         return table.concat(parts, " ")
     elseif noctalia.commandExists("wf-recorder") then
         recordingProcessName = "wf-recorder"
-        local parts = { "wf-recorder", string.format("-f %s", shellQuote(targetPath)), string.format("-r %d", fps), string.format("-c %s", codec) }
+        local wfCodec = if codec == "h264" then "libx264" elseif codec == "hevc" then "libx265" elseif codec == "av1" then "libsvtav1" else codec
+        local parts = { "wf-recorder", string.format("-f %s", shellQuote(targetPath)), string.format("-r %d", fps), string.format("-c %s", wfCodec) }
         if geom and geom ~= "" and geom ~= "screen" then table.insert(parts, string.format("-g %s", shellQuote(geom))) end
         if audioSource ~= "none" then table.insert(parts, "-a") end
         return table.concat(parts, " ")
